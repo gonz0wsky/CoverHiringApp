@@ -1,19 +1,26 @@
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useRestaurantTablesViewModel } from "./RestaurantTablesViewModel";
+import DateSelector from "./components/DateSelector";
 
 const RestaurantTablesView = () => {
+  const { currentDate, setCurrentDate } = useRestaurantTablesViewModel();
+
   return (
     <SafeAreaView style={styles.main}>
-      <Text>RestaurantTablesView</Text>
+      <DateSelector
+        style={styles.dateSelector}
+        currentDate={currentDate}
+        onDateChange={setCurrentDate}
+      />
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  main: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+  main: {},
+  dateSelector: {
+    marginHorizontal: 16,
   },
 });
 
