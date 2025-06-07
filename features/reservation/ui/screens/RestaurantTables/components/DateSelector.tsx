@@ -1,6 +1,7 @@
 import { colors } from "@/core/theme/atoms";
 import Icon from "@/shared/ui/components/Icon";
-import { addDays, format } from "date-fns";
+import { dateToString } from "@/shared/utils/date";
+import { addDays } from "date-fns";
 import { FC, memo, useCallback, useEffect, useMemo, useState } from "react";
 import {
   StyleSheet,
@@ -72,7 +73,7 @@ const DateSelector: FC<DateSelectorProps> = ({
   const [isDatePickerVisible, setIsDatePickerVisible] = useState(false);
 
   const dateTitle = useMemo(
-    () => format(currentDate, "dd/MM/yyyy"),
+    () => dateToString(currentDate, "dd/MM/yyyy"),
     [currentDate]
   );
 
