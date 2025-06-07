@@ -1,11 +1,14 @@
 import { QueryClientProvider } from "@/core/query-client/QueryClientProvider";
 import RestaurantTablesView from "@/features/reservation/ui/screens/RestaurantTables/RestaurantTablesView";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 const App = () => {
   return (
-    <QueryClientProvider>
-      <RestaurantTablesView />
-    </QueryClientProvider>
+    <GestureHandlerRootView>
+      <QueryClientProvider>
+        <RestaurantTablesView />
+      </QueryClientProvider>
+    </GestureHandlerRootView>
   );
 };
 

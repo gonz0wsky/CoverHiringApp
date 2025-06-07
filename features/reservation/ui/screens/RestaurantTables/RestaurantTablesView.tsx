@@ -1,7 +1,8 @@
-import { StyleSheet } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { colors } from "@/core/theme/atoms";
+import { StyleSheet, View } from "react-native";
 import { useRestaurantTablesViewModel } from "./RestaurantTablesViewModel";
 import DateSelector from "./components/DateSelector";
+import RoomMap from "./components/RoomMap/RoomMap";
 import RoomSelector from "./components/RoomSelector";
 
 const RestaurantTablesView = () => {
@@ -16,7 +17,7 @@ const RestaurantTablesView = () => {
   } = useRestaurantTablesViewModel();
 
   return (
-    <SafeAreaView style={styles.main}>
+    <View style={styles.main}>
       <DateSelector
         style={styles.dateSelector}
         currentDate={currentDate}
@@ -28,12 +29,13 @@ const RestaurantTablesView = () => {
         rooms={rooms}
         selectedRoomId={currentSelectedRoomId}
       />
-    </SafeAreaView>
+      <RoomMap tables={currentRoomTables} />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  main: {},
+  main: { flex: 1, backgroundColor: colors.white },
   dateSelector: {
     marginHorizontal: 16,
   },

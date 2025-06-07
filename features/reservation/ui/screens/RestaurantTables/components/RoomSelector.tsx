@@ -66,10 +66,11 @@ const RoomSelector: FC<RoomSelectorProps> = ({
 };
 
 const roomSelectorStyles = StyleSheet.create({
-  main: {},
-  containerStyle: {
+  main: {
     paddingHorizontal: 8,
+    flexGrow: 0,
   },
+  containerStyle: {},
 });
 
 export default memo(RoomSelector);
