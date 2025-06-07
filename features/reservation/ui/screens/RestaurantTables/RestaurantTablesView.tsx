@@ -4,7 +4,8 @@ import { useRestaurantTablesViewModel } from "./RestaurantTablesViewModel";
 import DateSelector from "./components/DateSelector";
 
 const RestaurantTablesView = () => {
-  const { currentDate, setCurrentDate } = useRestaurantTablesViewModel();
+  const { currentDate, setCurrentDate, rooms, isLoading } =
+    useRestaurantTablesViewModel();
 
   return (
     <SafeAreaView style={styles.main}>
