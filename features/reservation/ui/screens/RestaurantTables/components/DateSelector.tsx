@@ -19,7 +19,11 @@ type ButtonProps = {
 
 const SelectorButton: FC<ButtonProps> = ({ position, onPress }) => {
   return (
-    <TouchableOpacity onPress={onPress} style={selectorButtonStyles.main}>
+    <TouchableOpacity
+      testID={`date-selector-${position}`}
+      onPress={onPress}
+      style={selectorButtonStyles.main}
+    >
       {position === "left" && <Icon name="left-chevron" />}
       {position === "right" && <Icon name="right-chevron" />}
     </TouchableOpacity>
@@ -41,7 +45,11 @@ type CalendarProps = { title: string; onPress: () => void };
 
 const Calendar: FC<CalendarProps> = ({ title, onPress }) => {
   return (
-    <TouchableOpacity style={calendarStyles.main} onPress={onPress}>
+    <TouchableOpacity
+      testID={"date-selector-calendar"}
+      style={calendarStyles.main}
+      onPress={onPress}
+    >
       <Text>{title}</Text>
     </TouchableOpacity>
   );

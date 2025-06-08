@@ -1,0 +1,81 @@
+appId: com.anonymous.CoverHiringApp
+---
+- launchApp
+
+- tapOn:
+    id: date-selector-left
+
+- tapOn:
+    id: date-selector-right
+
+- tapOn:
+    id: date-selector-calendar
+
+- runFlow:
+    when:
+      platform: iOS
+    commands:
+      - swipe:
+          start: 38%, 71%
+          end: 38%, 78%
+      - tapOn:
+          point: "50%,86%"
+
+- runFlow:
+    when:
+      platform: android
+    commands:
+      - tapOn:
+          id: "android:id/next"
+      - tapOn: "10"
+      - tapOn:
+          id: "android:id/button1"
+
+- swipe:
+    start: 50%, 50%
+    end: 50%, 80%
+
+- swipe:
+    start: 50%, 80%
+    end: 50%, 20%
+
+- swipe:
+    start: 50%, 20%
+    end: 20%, 50%
+
+- swipe:
+    start: 20%, 50%
+    end: 80%, 50%
+
+- swipe:
+    start: 80%, 50%
+    end: 50%, 50%
+
+- tapOn:
+    id: map-item
+    index: 0
+
+- tapOn:
+    id: table-edit-alert-input
+- inputText: " Suarez"
+
+- tapOn:
+    id: table-edit-alert-save
+
+- tapOn:
+    id: map-item
+    index: 1
+- tapOn:
+    id: table-edit-alert-cancel
+
+- tapOn:
+    id: map-item
+    index: 2
+- tapOn:
+    id: table-edit-alert-cancel
+
+- tapOn:
+    id: map-item
+    index: 3
+- tapOn:
+    id: table-edit-alert-cancel

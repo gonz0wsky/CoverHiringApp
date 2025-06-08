@@ -39,7 +39,7 @@ const MapItem: FC<MapItemProps> = ({
   }, [id, onPress]);
 
   return (
-    <Animated.View style={[animatedStyles, styles.main]}>
+    <Animated.View testID="map-item" style={[animatedStyles, styles.main]}>
       <TouchableOpacity onPress={handleOnPress}>{children}</TouchableOpacity>
     </Animated.View>
   );

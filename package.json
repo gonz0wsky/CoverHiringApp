@@ -5,10 +5,13 @@
   "scripts": {
     "start": "expo start",
     "reset-project": "node ./scripts/reset-project.js",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
+    "android": "expo run:android",
+    "android-native": "npx expo run:android --no-build-cache --device",
+    "ios": "expo run:ios",
+    "ios-native": "npx expo run:ios --no-build-cache --device",
     "web": "expo start --web",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "e2e": "maestro test ./e2e/flow.yml"
   },
   "dependencies": {
     "@expo/vector-icons": "^14.1.0",

@@ -6,7 +6,14 @@ import {
   useImperativeHandle,
   useState,
 } from "react";
-import { Button, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  Button,
+  KeyboardAvoidingView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 
 type TableEditAlertState = {
   mode: "edit" | "create";
@@ -49,17 +56,28 @@ const TableEditAlert = forwardRef<TableEditAlertMethods>((_, ref) => {
 
   return (
     <View style={styles.main} pointerEvents="box-none">
-      <View style={styles.content}>
-        <Text>{title[tableInfo.mode]}</Text>
-        <TextInput
-          style={styles.textInput}
-          placeholder="Nombre de la reserva"
-          value={tableInfo.name}
-          onChangeText={handleOnTextInputChange}
-        />
-        <Button title="Guardar" onPress={handlePressSave} />
-        <Button title="Cancelar" onPress={handlePressCancel} />
-      </View>
+      <KeyboardAvoidingView behavior="position">
+        <View style={styles.content}>
+          <Text>{title[tableInfo.mode]}</Text>
+          <TextInput
+            testID="table-edit-alert-input"
+            style={styles.textInput}
+            placeholder="Nombre de la reserva"
+            value={tableInfo.name}
+            onChangeText={handleOnTextInputChange}
+          />
+          <Button
+            testID="table-edit-alert-save"
+            title="Guardar"
+            onPress={handlePressSave}
+          />
+          <Button
+            testID="table-edit-alert-cancel"
+            title="Cancelar"
+            onPress={handlePressCancel}
+          />
+        </View>
+      </KeyboardAvoidingView>
     </View>
   );
 });
