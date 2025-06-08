@@ -14,6 +14,7 @@ const RestaurantTablesView = () => {
     rooms,
     setCurrentDate,
     setSelectedRoomId,
+    handleOnPressTable,
   } = useRestaurantTablesViewModel();
 
   return (
@@ -29,7 +30,7 @@ const RestaurantTablesView = () => {
         rooms={rooms}
         selectedRoomId={currentSelectedRoomId}
       />
-      <RoomMap tables={currentRoomTables} />
+      <RoomMap tables={currentRoomTables} onPressTable={handleOnPressTable} />
     </View>
   );
 };

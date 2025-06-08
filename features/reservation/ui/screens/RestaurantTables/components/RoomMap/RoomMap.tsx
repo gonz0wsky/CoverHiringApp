@@ -1,22 +1,22 @@
 import { RoomTable } from "@/features/reservation/domain/RoomTable";
-import { Canvas, useCanvasRef } from "@shopify/react-native-skia";
-import { FC, memo, useMemo } from "react";
-import { StyleSheet } from "react-native";
+import { FC, memo, useCallback, useMemo } from "react";
+import { LayoutChangeEvent, StyleSheet } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
-import { useAnimatedReaction, useSharedValue } from "react-native-reanimated";
-import CircleShape from "./Shapes/Circle";
-import RectangleShape from "./Shapes/Rectangle";
-import SquareShape from "./Shapes/Square";
+import Animated, {
+  useAnimatedReaction,
+  useSharedValue,
+} from "react-native-reanimated";
+import MapItem from "./MapItem";
+import Shape from "./Shape";
 
 const CANVAS_MARGIN = 0.7;
 
 type RoomMapProps = {
   tables: RoomTable[];
+  onPressTable: (id: string) => void;
 };
 
-const RoomMap: FC<RoomMapProps> = ({ tables }) => {
-  const ref = useCanvasRef();
-
+const RoomMap: FC<RoomMapProps> = ({ tables, onPressTable }) => {
   const canvasSize = useSharedValue({ width: 0, height: 0 });
 
   const offsetX = useSharedValue(0);
@@ -45,9 +45,11 @@ const RoomMap: FC<RoomMapProps> = ({ tables }) => {
       canvasHeight: canvasSize.value.height,
     }),
     ({ canvasWidth, canvasHeight }) => {
-      // or 1 to avoid division by zero in case of empty bounds
-      const contentWidth = bounds.maxX - bounds.minX || 1;
-      const contentHeight = bounds.maxY - bounds.minY || 1;
+      // avoid bounds calculation for less than 2 tables
+      if (tables.length < 2) return;
+
+      const contentWidth = bounds.maxX - bounds.minX;
+      const contentHeight = bounds.maxY - bounds.minY;
 
       const zoomX = canvasWidth / contentWidth;
       const zoomY = canvasHeight / contentHeight;
@@ -65,6 +67,14 @@ const RoomMap: FC<RoomMapProps> = ({ tables }) => {
       savedOffsetY.value = offsetY.value;
     },
     [canvasSize, tables, bounds]
+  );
+
+  const onLayout = useCallback(
+    (e: LayoutChangeEvent) => {
+      const { width, height } = e.nativeEvent.layout;
+      canvasSize.value = { width, height };
+    },
+    [canvasSize]
   );
 
   const panGesture = Gesture.Pan()
@@ -89,45 +99,32 @@ const RoomMap: FC<RoomMapProps> = ({ tables }) => {
 
   return (
     <GestureDetector gesture={composedGesture}>
-      <Canvas style={{ flex: 1 }} ref={ref} onSize={canvasSize}>
-        {tables.map((table) => {
-          const position = {
-            x: table.position.x,
-            y: table.position.y,
-            offsetX,
-            offsetY,
-            zoom,
-          };
-
-          if (table.shape === "circle") {
-            return (
-              <CircleShape key={table.id} position={position} table={table} />
-            );
-          }
-
-          if (table.shape === "square") {
-            return (
-              <SquareShape key={table.id} position={position} table={table} />
-            );
-          }
-
-          if (table.shape === "rectangle") {
-            return (
-              <RectangleShape
-                key={table.id}
-                position={position}
-                table={table}
-              />
-            );
-          }
-
-          return null;
-        })}
-      </Canvas>
+      <Animated.View style={styles.main} onLayout={onLayout}>
+        {tables.map((table) => (
+          <MapItem
+            id={table.id}
+            onPress={onPressTable}
+            key={table.id}
+            offsetX={offsetX}
+            offsetY={offsetY}
+            x={table.position.x}
+            y={table.position.y}
+            zoom={zoom}
+          >
+            <Shape roomTable={table} variant={table.shape} zoom={zoom} />
+          </MapItem>
+        ))}
+      </Animated.View>
     </GestureDetector>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  main: {
+    position: "relative",
+    flex: 1,
+    overflow: "hidden",
+  },
+});
 
 export default memo(RoomMap);

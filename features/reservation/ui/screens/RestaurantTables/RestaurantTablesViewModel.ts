@@ -1,5 +1,5 @@
 import useReservationsQuery from "@/features/reservation/api/useReservationsQuery";
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 const useRestaurantTablesViewModel = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -15,6 +15,10 @@ const useRestaurantTablesViewModel = () => {
     return room.tables;
   }, [currentSelectedRoomId, data]);
 
+  const handleOnPressTable = useCallback((id: string) => {
+    console.log("id", id);
+  }, []);
+
   return {
     currentDate,
     isLoading,
@@ -23,6 +27,7 @@ const useRestaurantTablesViewModel = () => {
     currentRoomTables,
     setCurrentDate,
     setSelectedRoomId,
+    handleOnPressTable,
   };
 };
 
