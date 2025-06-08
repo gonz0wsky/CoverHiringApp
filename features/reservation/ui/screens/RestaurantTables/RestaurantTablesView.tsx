@@ -1,5 +1,5 @@
 import { colors } from "@/core/theme/atoms";
-import { StyleSheet, View } from "react-native";
+import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 import DateSelector from "./components/DateSelector";
 import RoomMap from "./components/RoomMap/RoomMap";
 import RoomSelector from "./components/RoomSelector";
@@ -17,6 +17,7 @@ const RestaurantTablesView = () => {
     setSelectedRoomId,
     handleOnPressTable,
     tableEditAlertRef,
+    error,
   } = useRestaurantTablesViewModel();
 
   return (
@@ -26,14 +27,26 @@ const RestaurantTablesView = () => {
         currentDate={currentDate}
         onDateChange={setCurrentDate}
       />
-      <RoomSelector
-        style={styles.roomSelector}
-        onPressRoom={setSelectedRoomId}
-        rooms={rooms}
-        selectedRoomId={currentSelectedRoomId}
-      />
-      <RoomMap tables={currentRoomTables} onPressTable={handleOnPressTable} />
-      <TableEditAlert ref={tableEditAlertRef} />
+      {isLoading || error ? (
+        <View style={styles.stateBox}>
+          {isLoading && <ActivityIndicator size="large" />}
+          {error && <Text>Ha ocurrido un error</Text>}
+        </View>
+      ) : (
+        <>
+          <RoomSelector
+            style={styles.roomSelector}
+            onPressRoom={setSelectedRoomId}
+            rooms={rooms}
+            selectedRoomId={currentSelectedRoomId}
+          />
+          <RoomMap
+            tables={currentRoomTables}
+            onPressTable={handleOnPressTable}
+          />
+          <TableEditAlert ref={tableEditAlertRef} />
+        </>
+      )}
     </View>
   );
 };
@@ -45,6 +58,11 @@ const styles = StyleSheet.create({
   },
   roomSelector: {
     marginTop: 16,
+  },
+  stateBox: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

@@ -8,7 +8,7 @@ const useRestaurantTablesViewModel = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedRoomId, setSelectedRoomId] = useState<string | null>(null);
 
-  const { data, isLoading } = useReservationsQuery(currentDate);
+  const { data, isLoading, error } = useReservationsQuery(currentDate);
 
   const currentSelectedRoomId = selectedRoomId ?? data?.[0]?.id ?? "";
   const currentRoomTables = useMemo(() => {
@@ -39,6 +39,7 @@ const useRestaurantTablesViewModel = () => {
     currentDate,
     currentRoomTables,
     currentSelectedRoomId,
+    error,
     handleOnPressTable,
     isLoading,
     rooms: data ?? [],
