@@ -1,9 +1,10 @@
 import { colors } from "@/core/theme/atoms";
 import { StyleSheet, View } from "react-native";
-import { useRestaurantTablesViewModel } from "./RestaurantTablesViewModel";
 import DateSelector from "./components/DateSelector";
 import RoomMap from "./components/RoomMap/RoomMap";
 import RoomSelector from "./components/RoomSelector";
+import { useRestaurantTablesViewModel } from "./RestaurantTablesViewModel";
+import TableEditAlert from "./TableEditAlert";
 
 const RestaurantTablesView = () => {
   const {
@@ -15,6 +16,7 @@ const RestaurantTablesView = () => {
     setCurrentDate,
     setSelectedRoomId,
     handleOnPressTable,
+    tableEditAlertRef,
   } = useRestaurantTablesViewModel();
 
   return (
@@ -31,6 +33,7 @@ const RestaurantTablesView = () => {
         selectedRoomId={currentSelectedRoomId}
       />
       <RoomMap tables={currentRoomTables} onPressTable={handleOnPressTable} />
+      <TableEditAlert ref={tableEditAlertRef} />
     </View>
   );
 };

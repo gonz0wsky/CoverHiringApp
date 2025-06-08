@@ -1,7 +1,10 @@
 import useReservationsQuery from "@/features/reservation/api/useReservationsQuery";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
+import { TableEditAlertMethods } from "./TableEditAlert";
 
 const useRestaurantTablesViewModel = () => {
+  const tableEditAlertRef = useRef<TableEditAlertMethods>(null);
+
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedRoomId, setSelectedRoomId] = useState<string | null>(null);
 
@@ -15,19 +18,33 @@ const useRestaurantTablesViewModel = () => {
     return room.tables;
   }, [currentSelectedRoomId, data]);
 
-  const handleOnPressTable = useCallback((id: string) => {
-    console.log("id", id);
-  }, []);
+  const handleOnPressTable = useCallback(
+    (id: string) => {
+      const table = currentRoomTables.find((table) => table.id === id);
+
+      if (!table) return;
+
+      const isReserved = !!table?.reservedBy;
+
+      tableEditAlertRef.current?.setTableInfo({
+        mode: isReserved ? "edit" : "create",
+        id,
+        name: table.reservedBy ?? "",
+      });
+    },
+    [currentRoomTables]
+  );
 
   return {
     currentDate,
+    currentRoomTables,
+    currentSelectedRoomId,
+    handleOnPressTable,
     isLoading,
     rooms: data ?? [],
-    currentSelectedRoomId,
-    currentRoomTables,
     setCurrentDate,
     setSelectedRoomId,
-    handleOnPressTable,
+    tableEditAlertRef,
   };
 };
 
