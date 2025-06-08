@@ -1,50 +1,41 @@
-# Welcome to your Expo app 👋
+Dado que es una prueba técnica, no he terminado cosas que en producción son necesarias, por ejemplo:
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+- Implementación de revisores de código para mantener el código limpio y seguro entre distintos desarrolladores.  
+- No publicar el `.env` en el repositorio.  
+- Implementación de una estrategia de CI/CD para el control de la calidad del código y su despliegue.  
+- Validación y control de formularios: Hook Form, Zod, etc.  
+- Muestra de errores de red para dar feedback al usuario: algún componente de error tipo *toast*, por ejemplo.  
+- Creación de *tokens* para implementar el diseño reutilizando espacios, colores, etc.  
+- Implementación de un cliente que gestione la autenticación y autorización de usuarios para ser usado en la implementación del repositorio.  
+- Navegación entre pantallas: React Navigation, Stack Navigator, Tab Navigator, etc., para implementar una navegación más dinámica.  
+- Animaciones: Reanimated, Lottie, etc., para dar mayor fluidez a la interfaz.  
+- Componentes de carga más adecuados que ayuden a reducir la percepción de carga: *Loading Indicator*, *Skeleton*, etc.
 
-## Get started
+---
 
-1. Install dependencies
-
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+### Para arrancar el proyecto:
 
 ```bash
-npm run reset-project
+npm i
+npm run ios # o npm run android
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Para ejecutar los tests:
 
-## Learn more
+```bash
+npm run test
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+Para ejecutar los tests e2e:
+```bash
+npm run ios-native # o npm run android-native
+npm run e2e
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+Los dispositivos usados para las pruebas son:
+- iPhone 16 Pro (Simulator)
+- iPhone 12 Mini
+- Pixel 9 Pro API 35 (Emulator)
 
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Otros: 
+- No he implementado tests con React Native Testing Library, porque me da problemas al instalarlo en el proyecto, creo que el problema es que no es compatible con esta versión de Expo.
