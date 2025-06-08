@@ -33,7 +33,7 @@ npm run e2e
 ```
 
 Los dispositivos usados para las pruebas son:
-- iPhone 16 Pro (Simulator)
+- iPhone 16 Plus (Simulator)
 - iPhone 12 Mini
 - Pixel 9 Pro API 35 (Emulator)
 
