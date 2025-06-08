@@ -45,6 +45,8 @@ const RoomMap: FC<RoomMapProps> = ({ tables, onPressTable }) => {
       canvasHeight: canvasSize.value.height,
     }),
     ({ canvasWidth, canvasHeight }) => {
+      if (canvasWidth === 0 || canvasHeight === 0) return;
+
       // avoid bounds calculation for less than 2 tables
       if (tables.length < 2) return;
 
@@ -56,12 +58,11 @@ const RoomMap: FC<RoomMapProps> = ({ tables, onPressTable }) => {
 
       zoom.value = Math.min(zoomX, zoomY) * CANVAS_MARGIN;
 
-      offsetX.value =
-        (canvasWidth - contentWidth * zoom.value) / 2 -
-        bounds.minX * zoom.value;
-      offsetY.value =
-        (canvasHeight - contentHeight * zoom.value) / 2 -
-        bounds.minY * zoom.value;
+      const centerX = (bounds.minX + bounds.maxX) / 1.75;
+      const centerY = (bounds.minY + bounds.maxY) / 1.45;
+
+      offsetX.value = canvasWidth / 2 - centerX * zoom.value;
+      offsetY.value = canvasHeight / 2 - centerY * zoom.value;
 
       savedOffsetX.value = offsetX.value;
       savedOffsetY.value = offsetY.value;

@@ -7,8 +7,8 @@ import Animated, {
   useAnimatedStyle,
 } from "react-native-reanimated";
 
-const SIZE = 100;
-const FONT_SIZE = 14;
+const SIZE = 40;
+const FONT_SIZE = 4;
 
 type ShapeProps = {
   roomTable: RoomTable;
