@@ -29,7 +29,7 @@ npm run test
 Para ejecutar los tests e2e:
 ```bash
 npm run ios-native # o npm run android-native
-npm run e2e
+npm run e2e # requiere tener instalado Maestro en el sistema!
 ```
 
 Los dispositivos usados para las pruebas son:
